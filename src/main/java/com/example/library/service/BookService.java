@@ -4,9 +4,11 @@ import com.example.library.exception.BookNotFoundException;
 import com.example.library.exception.BookUnavailableException;
 import com.example.library.model.Book;
 import com.example.library.repository.BookRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,4 +48,11 @@ public class BookService {
             throw new IllegalStateException("Book is not issued");
         }
     }
+
+    @PostConstruct
+    public void initBooks() {
+        bookRepository.save(new Book(null,"Название книги 1", "Автор 1", new Date(),"available"));
+        bookRepository.save(new Book(null,"Название книги 2", "Автор 2", new Date(),"available"));
+    }
+
 }
